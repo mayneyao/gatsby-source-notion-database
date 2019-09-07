@@ -1,0 +1,23 @@
+{
+  "name": "gatsby-source-notion-database",
+  "version": "1.0.0",
+  "description": "Load data from Notion's database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mayneyao/gatsby-source-notion-database.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/mayneyao/gatsby-source-notion-database/issues"
+  },
+  "homepage": "https://github.com/mayneyao/gatsby-source-notion-database#readme",
+  "dependencies": {
+    "notabase": "^0.6.5"
+  }
+}
