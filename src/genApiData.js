@@ -42,7 +42,7 @@ function getCachedData(item) {
     }
 }
 
-async function genApiData(collection, tableName, key, createNode, createNodeId, createContentDigest, settings) {
+async function genApiData(nb, collection, tableName, key, createNode, createNodeId, createContentDigest, settings) {
     console.log(`🌈fetch data from notion: ${tableName}`)
     let props = collection.props.filter(i => !(i === '_raw'))
     await Promise.all(collection.rows.filter(i => i).map(async (itemData) => {
