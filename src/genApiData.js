@@ -48,6 +48,7 @@ async function genApiData(collection, tableName, key, createNode, createNodeId, 
     await Promise.all(collection.rows.filter(i => i).map(async (itemData) => {
         let data = {
             id: itemData.id,
+            slug: itemData.id.split("-").join(""),
             last_edited_time: itemData._raw.last_edited_time,
             created_time: itemData._raw.created_time,
             _raw: itemData._raw
