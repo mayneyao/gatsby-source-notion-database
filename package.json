@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/mayneyao/gatsby-source-notion-database#readme",
   "dependencies": {
-    "notabase": "^0.6.5"
+    "notabase": "^0.6.5",
+    "puppeteer": "^1.19.0"
+  },
+  "devDependencies": {
+    "mkdirp": "^0.5.1"
   }
 }
