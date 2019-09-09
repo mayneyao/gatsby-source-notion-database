@@ -216,10 +216,10 @@ node-fetch@^2.6.0:
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
   integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
 
-notabase@^0.6.5:
-  version "0.6.5"
-  resolved "https://registry.yarnpkg.com/notabase/-/notabase-0.6.5.tgz#4774e096366eb16c56743b501879c1999ba73ced"
-  integrity sha512-YKwaXd4M1FySFoRH4kWDGMWcqn5wSx/GqSPUR1neqoVk6N/M6suiMASvecCZ9GZNmfSkT5V0qPEE8tDbZsDO0A==
+notabase@^0.6.7:
+  version "0.6.7"
+  resolved "https://registry.npmjs.org/notabase/-/notabase-0.6.7.tgz#c7d30a7ddbeff1f1a2cf4fe496c9356820a5f0a8"
+  integrity sha512-x/6934eDNhAONuTvL+k3/8um/7AXr8857poHuItfT7n0dROLPMjVfAPEcjVwMmVE5fRBrQ+eDLTZIlRK9L36YA==
   dependencies:
     axios "^0.19.0"
     dayjs "^1.8.15"
