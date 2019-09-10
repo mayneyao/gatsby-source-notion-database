@@ -3,12 +3,13 @@ const fs = require("fs")
 const mkdirp = require("mkdirp")
 
 
+const cachePathName = '.cache/.notion'
+
 function updateCacheData(item) {
     let data = {
         last_edited_time: item.last_edited_time,
         html: item.html
     }
-    let cachePathName = '.notion'
     if (!fs.existsSync(cachePathName)) {
         mkdirp(cachePathName)
     }
@@ -21,8 +22,6 @@ function updateCacheData(item) {
 }
 
 function getCachedData(item) {
-    let cachePathName = '.notion'
-
     if (!fs.existsSync(cachePathName)) {
         mkdirp(cachePathName)
     }
