@@ -17,29 +17,38 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }, opt
     } else if (sourceConfig) {
         config = sourceConfig
     }
+    let configNode = []
     config.filter(i => i).map(c => {
-        if (!c.cacheType === "dynamic") {
-            _dbMap[c.name] = c.table
-        } else {
+        configNode.push({
+            name: c.name,
+            cacheType: c.cacheType,
+            table: c.table
+        })
+        if (c.cacheType === "html") {
             cacheTable.push(c.name)
+            _dbMap[c.name] = c.table
+        } else if (!(c.cacheType === "dynamic")) {
+            _dbMap[c.name] = c.table
         }
     })
 
-    const nodeContent = JSON.stringify(config)
-    const nodeMeta = {
-        id: createNodeId(nodeContent),
-        parent: null,
-        children: [],
-        internal: {
-            type: 'SourceConfig',
-            mediaType: `text/html`,
-            content: nodeContent,
-            contentDigest: createContentDigest(config)
-        },
-    }
-    const node = Object.assign({}, config, nodeMeta)
-    createNode(node)
-
+    configNode.map(data => {
+        const nodeContent = JSON.stringify(data)
+        const nodeMeta = {
+            id: createNodeId(nodeContent),
+            parent: null,
+            children: [],
+            internal: {
+                type: 'SourceConfig',
+                mediaType: `text/html`,
+                content: nodeContent,
+                contentDigest: createContentDigest(data)
+            },
+        }
+        const node = Object.assign({}, data, nodeMeta)
+        createNode(node)
+    })
+    console.log(_dbMap, cacheTable)
     let db = await nb.fetchAll(_dbMap)
     await Promise.all(Object.entries(db).map(async (i) => {
         let [tableName, collection] = i
