@@ -3,7 +3,7 @@ const fs = require("fs")
 const mkdirp = require("mkdirp")
 
 
-const cachePathName = '.cache/.notion'
+const cachePathName = 'public/.notion'
 
 function updateCacheData(item) {
     let data = {
