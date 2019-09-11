@@ -73,9 +73,15 @@ async function genApiData(nb, collection, tableName, key, createNode, createNode
                         data.html = cachedData.html
                     } else {
                         let url = `https://notion.so/${itemData.id.split('-').join('')}`
-                        let html = await getPageHtml(url)
-                        data.html = html
-                        updateCacheData(data)
+                        let html
+                        try {
+                            html = await getPageHtml(url)
+                            data.html = html
+                            updateCacheData(data)
+                        } catch (error) {
+                            html = 'error'
+                            data.html = html
+                        }
                     }
                 }
             }

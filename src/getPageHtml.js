@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 
-
+process.setMaxListeners(0)
 const getPageHtml = async (url) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
