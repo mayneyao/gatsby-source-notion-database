@@ -75,9 +75,14 @@ async function genApiData(nb, collection, tableName, key, createNode, createNode
                     } else {
                         console.log(`get html from notion: ${tableName} - ${itemData.id}`)
                         let url = `https://notion.so/${itemData.id.split('-').join('')}`
-                        let html = await getPageHtml(url)
-                        data.html = html
-                        updateCacheData(data)
+                        try {
+                            let html = await getPageHtml(url)
+                            data.html = html
+                            updateCacheData(data)
+                        } catch (error) {
+                            data.html = `fetch error`
+                            console.log(`failed to fetch html of ${tableName} - ${itemData.id}`)
+                        }
                     }
                 }
             }
