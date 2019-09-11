@@ -72,7 +72,8 @@ async function genApiData(nb, collection, tableName, key, createNode, createNode
                         case 'rollup':
                             res = itemData[property]
                         case 'relation':
-                            res = itemData[property].filter(i => i && i.id) // fix undefine relations
+                            res = itemData[property]
+                            res = res && res.filter(i => i && i.id) // fix undefine relations
                             resFk[`${property}___NODE`] = res.map(i => createNodeId(i.id))
                             break
                         default:
