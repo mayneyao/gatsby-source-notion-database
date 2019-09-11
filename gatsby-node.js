@@ -37,7 +37,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }, opt
             contentDigest: createContentDigest(config)
         },
     }
-    const node = Object.assign({}, SourceConfig, nodeMeta)
+    const node = Object.assign({}, config, nodeMeta)
     createNode(node)
 
     let db = await nb.fetchAll(_dbMap)
