@@ -34,7 +34,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }, opt
             type: 'SourceConfig',
             mediaType: `text/html`,
             content: nodeContent,
-            contentDigest: createContentDigest(SourceConfig)
+            contentDigest: createContentDigest(config)
         },
     }
     const node = Object.assign({}, SourceConfig, nodeMeta)
