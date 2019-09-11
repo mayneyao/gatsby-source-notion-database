@@ -61,9 +61,9 @@ async function genApiData(nb, collection, tableName, key, createNode, createNode
                 if (rawValue && type === "relation") {
                     res = res && res.filter(i => i && i.id) // fix undefine relations
                     resFk[`${property}___NODE`] = res.map(i => createNodeId(i.id))
-                    data[property] = res
-                    data = { ...data, ...resFk }
                 }
+                data[property] = res
+                data = { ...data, ...resFk }
             })
 
             if (settings.hasOwnProperty(tableName)) {
