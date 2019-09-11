@@ -57,28 +57,10 @@ async function genApiData(nb, collection, tableName, key, createNode, createNode
             props.map(property => {
                 const { key, type, collection_id } = collection.propsKeyMap[property]
                 let rawValue = itemData.properties ? itemData.properties[key] : false
-                let res
-                if (rawValue) {
-                    switch (type) {
-                        case 'title':
-                        case 'text':
-                        case 'url':
-                        case 'select':
-                        case 'number':
-                        case 'checkbox':
-                        case 'date':
-                        case 'multi_select':
-                        case 'file':
-                        case 'rollup':
-                            res = itemData[property]
-                        case 'relation':
-                            res = itemData[property]
-                            res = res && res.filter(i => i && i.id) // fix undefine relations
-                            resFk[`${property}___NODE`] = res.map(i => createNodeId(i.id))
-                            break
-                        default:
-                            res = itemData[property]
-                    }
+                let res = itemData[property]
+                if (rawValue && type === "relation") {
+                    res = res && res.filter(i => i && i.id) // fix undefine relations
+                    resFk[`${property}___NODE`] = res.map(i => createNodeId(i.id))
                     data[property] = res
                     data = { ...data, ...resFk }
                 }
