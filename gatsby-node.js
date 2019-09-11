@@ -6,28 +6,44 @@ let nb = new Notabase()
 exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }, options) => {
 
     const { createNode } = actions
-    const { configTable, dbMap, settings } = options
+    const { configTable, sourceConfig } = options
 
-    let cacheSettings = {}
+    let config
     let _dbMap = {}
+    let cacheTable = []
     if (configTable) {
-        let config = await nb.fetch(configTable)
-        config.rows.filter(i => i).map(c => {
+        let configCollection = await nb.fetch(configTable)
+        config = configCollection.rows
+    } else if (sourceConfig) {
+        config = sourceConfig
+    }
+    config.filter(i => i).map(c => {
+        if (!c.cacheType === "dynamic") {
             _dbMap[c.name] = c.table
-            if (c.isHtmlCache) {
-                cacheSettings[c.name] = 'html'
-            }
-        })
-    } else if (dbMap) {
-        _dbMap = dbMap
+        } else {
+            cacheTable.push(c.name)
+        }
+    })
+
+    const nodeContent = JSON.stringify(config)
+    const nodeMeta = {
+        id: createNodeId(nodeContent),
+        parent: null,
+        children: [],
+        internal: {
+            type: 'SourceConfig',
+            mediaType: `text/html`,
+            content: nodeContent,
+            contentDigest: createContentDigest(SourceConfig)
+        },
     }
-    if (settings) {
-        cacheSettings = settings
-    }
+    const node = Object.assign({}, SourceConfig, nodeMeta)
+    createNode(node)
+
     let db = await nb.fetchAll(_dbMap)
     await Promise.all(Object.entries(db).map(async (i) => {
         let [tableName, collection] = i
-        await genApiData(nb, collection, tableName, 'id', createNode, createNodeId, createContentDigest, cacheSettings)
+        await genApiData(nb, collection, tableName, 'id', createNode, createNodeId, createContentDigest, cacheTable)
     }))
     return
 }
