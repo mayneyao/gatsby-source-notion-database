@@ -63,39 +63,20 @@ async function genApiData(nb, collection, tableName, key, createNode, createNode
                         case 'title':
                         case 'text':
                         case 'url':
+                        case 'select':
                         case 'number':
-                            res = rawValue[0][0]
-                            break
                         case 'checkbox':
-                            res = Boolean(rawValue[0][0] === 'Yes')
-                            break
                         case 'date':
-                            res = rawValue[0][1][0][1].start_date
-                            break
                         case 'multi_select':
-                            res = rawValue[0][0].split(',')
-                            break
                         case 'file':
-                            res = rawValue.filter(item => {
-                                let content = item[1]
-                                return Boolean(content)
-                            }).map(item => {
-                                return item[1][0][1]
-                            })
-                            break
+                        case 'rollup':
+                            res = itemData[property]
                         case 'relation':
-                            res = rawValue.filter(item => item.length > 1).map(item => {
-                                let _schema = nb.collectionSchemaStore[collection_id]
-                                let _blockId = item[1][0][1]
-                                return collection.makeRow(_blockId, _schema)
-                            })
+                            res = itemData[property]
                             resFk[`${property}___NODE`] = res.filter(i => i).map(i => createNodeId(i.id))
                             break
-                        case 'rollup':
-                            res = rawValue.filter(item => item.length > 1).map(item => item[1][0])
-                            break
                         default:
-                            res = rawValue
+                            res = itemData[property]
                     }
                     data[property] = res
                     data = { ...data, ...resFk }
