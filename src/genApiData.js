@@ -70,8 +70,10 @@ async function genApiData(nb, collection, tableName, key, createNode, createNode
                 if (settings[tableName] === 'html') {
                     let cachedData = getCachedData(data)
                     if (cachedData) {
+                        console.log(`get html from cache: ${tableName} - ${itemData.id}`)
                         data.html = cachedData.html
                     } else {
+                        console.log(`get html from notion: ${tableName} - ${itemData.id}`)
                         let url = `https://notion.so/${itemData.id.split('-').join('')}`
                         let html = await getPageHtml(url)
                         data.html = html
