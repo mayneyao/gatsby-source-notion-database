@@ -9,15 +9,27 @@ module.exports = {
         {
             resolve: `gatsby-source-notion-database`,
             options: {
-                dbMap: {
-                    "posts": "https://www.notion.so/e129ae7f3e6046a79fbe6de0cd90e9b7?v=fb24e635327a48748ab88bad64db7b46"
-                },
-                settings: {
-                    "posts": "html" // row-page's html will be cached in posts table
-                }
+                sourceConfig : [
+                   {
+                      "name": "posts",
+                      "table": "https://www.notion.so/e129ae7f3e6046a79fbe6de0cd90e9b7?v=fb24e635327a48748ab88bad64db7b46",
+                      "cacheType": "static"
+                   },
+                ]
             }
         }
     ],
 }
 
 ```
+
+## Config 
+
++ name
+ name of nodeType
++ table
+ url of database table
++ cacheType
+ + static
+ + html
+ + dynamic
