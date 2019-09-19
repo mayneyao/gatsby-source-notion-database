@@ -3,7 +3,7 @@ const fs = require("fs")
 const mkdirp = require("mkdirp")
 
 
-const cachePathName = '.cache/.notion'
+const cachePathName = 'public/.notion'
 
 function updateCacheData(item) {
     let data = {
@@ -41,7 +41,7 @@ function getCachedData(item) {
     }
 }
 
-async function genApiData(nb, collection, tableName, key, createNode, createNodeId, createContentDigest, settings) {
+async function genApiData(nb, collection, tableName, key, createNode, createNodeId, createContentDigest, cacheTable) {
     console.log(`🌈fetch data from notion: ${tableName}`)
     let props = collection.props.filter(i => !(i === '_raw'))
     await Promise.all(collection.rows.filter(i => i).map(async (itemData) => {
@@ -66,22 +66,21 @@ async function genApiData(nb, collection, tableName, key, createNode, createNode
                 data = { ...data, ...resFk }
             })
 
-            if (settings.hasOwnProperty(tableName)) {
-                if (settings[tableName] === 'html') {
-                    let cachedData = getCachedData(data)
-                    if (cachedData) {
-                        data.html = cachedData.html
-                    } else {
-                        let url = `https://notion.so/${itemData.id.split('-').join('')}`
-                        let html
-                        try {
-                            html = await getPageHtml(url)
-                            data.html = html
-                            updateCacheData(data)
-                        } catch (error) {
-                            html = 'error'
-                            data.html = html
-                        }
+            if (cacheTable.includes(tableName)) {
+                let cachedData = getCachedData(data)
+                if (cachedData) {
+                    console.log(`get html from cache: ${tableName} - ${itemData.id}`)
+                    data.html = cachedData.html
+                } else {
+                    console.log(`get html from notion: ${tableName} - ${itemData.id}`)
+                    let url = `https://notion.so/${itemData.id.split('-').join('')}`
+                    try {
+                        let html = await getPageHtml(url)
+                        data.html = html
+                        updateCacheData(data)
+                    } catch (error) {
+                        data.html = `fetch error`
+                        console.log(`failed to fetch html of ${tableName} - ${itemData.id}`)
                     }
                 }
             }

@@ -52,7 +52,7 @@ const getPageHtml = async (url) => {
             return content.innerHTML
         }
         else {
-            return false
+            return 'error'
         }
     })
 
