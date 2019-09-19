@@ -1,10 +1,6 @@
 {
   "name": "gatsby-source-notion-database",
-<<<<<<< HEAD
-  "version": "0.5.3",
-=======
   "version": "0.5.9",
->>>>>>> b39e5972cc62a10d1f77fe8820a596d75d007e66
   "description": "Load data from Notion's database",
   "main": "index.js",
   "scripts": {
