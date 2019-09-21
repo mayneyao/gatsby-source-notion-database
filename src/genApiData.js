@@ -1,7 +1,8 @@
 const getPageHtml = require('./getPageHtml')
 const fs = require("fs")
 const mkdirp = require("mkdirp")
-
+const pLimit = require('p-limit');
+const limit = pLimit(5);
 
 const cachePathName = 'public/.notion'
 
@@ -32,8 +33,10 @@ function getCachedData(item) {
             if (cachedData.last_edited_time < item.last_edited_time) {
                 // 缓存需要更新
                 return false
-            } else {
+            } else if (cachedData.html) {
                 return cachedData
+            } else {
+                return false
             }
         } else {
             return false
@@ -44,7 +47,7 @@ function getCachedData(item) {
 async function genApiData(nb, collection, tableName, key, createNode, createNodeId, createContentDigest, cacheTable) {
     console.log(`🌈fetch data from notion: ${tableName}`)
     let props = collection.props.filter(i => !(i === '_raw'))
-    await Promise.all(collection.rows.filter(i => i).map(async (itemData) => {
+    await Promise.all(collection.rows.filter(i => i).map(itemData => limit(async () => {
         let data = {
             id: itemData.id,
             slug: itemData.id.split("-").join(""),
@@ -102,7 +105,8 @@ async function genApiData(nb, collection, tableName, key, createNode, createNode
             console.log(error)
             console.log(`get failed at ${itemData.id}`)
         }
-    }))
+    })
+    ))
 }
 
 
