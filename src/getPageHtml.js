@@ -17,7 +17,7 @@ const getPageHtml = async (url) => {
                 item.src = item.src
             }
         })
-
+        
         // TOC 链接转化
         let qs = "#notion-app > div > div.notion-cursor-listener > div > div.notion-scroller.vertical.horizontal > div.notion-page-content > div > div:nth-child(1) > div > a"
         document.querySelectorAll(qs).forEach(item => {
@@ -36,12 +36,22 @@ const getPageHtml = async (url) => {
                     return blockId
                 }
             }
-            let hashBlockID = getFullBlockId(item.hash.slice(1))
-            item.href = `#${hashBlockID}`
 
-            let block = document.querySelector(`div[data-block-id="${hashBlockID}"]`)
-            if (block) {
-                block.id = hashBlockID
+            let u
+            try {
+                u = new URL(item.href)
+            } catch (error) {
+                console.log(error)
+            }
+
+            if (u && u.host === 'www.notion.so') {
+                let hashBlockID = getFullBlockId(item.hash.slice(1))
+                item.href = `#${hashBlockID}`
+
+                let block = document.querySelector(`div[data-block-id="${hashBlockID}"]`)
+                if (block) {
+                    block.id = hashBlockID
+                }
             }
         });
 
