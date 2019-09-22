@@ -45,9 +45,20 @@ const getPageHtml = async (url) => {
             }
         });
 
+        // 表格视图 CSS 修复
+        document.querySelectorAll("div.notion-scroller.horizontal").forEach(item => {
+            item.children[0].style.padding = 0
+            item.previousElementSibling.style.paddingLeft = 0
+        })
         // 文章内容
         let content = document.querySelector('#notion-app > div > div.notion-cursor-listener > div > div > div.notion-page-content')
 
+
+        // 可编辑内容修复
+        let contenteditable = content.querySelectorAll("div[contenteditable=true]")
+        contenteditable.forEach(i => {
+            i.setAttribute("contenteditable", false)
+        })
         if (content) {
             return content.innerHTML
         }
