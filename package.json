@@ -20,7 +20,7 @@
   "dependencies": {
     "nast-util-from-notionapi": "^0.5.0",
     "nast-util-to-html": "^0.2.2",
-    "notabase": "^0.6.9",
+    "notabase": "^0.7.0",
     "notionapi-agent": "^0.5.2",
     "p-limit": "^2.2.1",
     "puppeteer": "^1.19.0"
