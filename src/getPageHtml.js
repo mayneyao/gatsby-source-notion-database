@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 
-
+process.setMaxListeners(0)
 const getPageHtml = async (url) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -17,7 +17,7 @@ const getPageHtml = async (url) => {
                 item.src = item.src
             }
         })
-
+        
         // TOC 链接转化
         let qs = "#notion-app > div > div.notion-cursor-listener > div > div.notion-scroller.vertical.horizontal > div.notion-page-content > div > div:nth-child(1) > div > a"
         document.querySelectorAll(qs).forEach(item => {
@@ -36,12 +36,22 @@ const getPageHtml = async (url) => {
                     return blockId
                 }
             }
-            let hashBlockID = getFullBlockId(item.hash.slice(1))
-            item.href = `#${hashBlockID}`
 
-            let block = document.querySelector(`div[data-block-id="${hashBlockID}"]`)
-            if (block) {
-                block.id = hashBlockID
+            let u
+            try {
+                u = new URL(item.href)
+            } catch (error) {
+                console.log(error)
+            }
+
+            if (u && u.host === 'www.notion.so') {
+                let hashBlockID = getFullBlockId(item.hash.slice(1))
+                item.href = `#${hashBlockID}`
+
+                let block = document.querySelector(`div[data-block-id="${hashBlockID}"]`)
+                if (block) {
+                    block.id = hashBlockID
+                }
             }
         });
 
@@ -50,11 +60,11 @@ const getPageHtml = async (url) => {
             item.children[0].style.padding = 0
             item.previousElementSibling.style.paddingLeft = 0
         })
-        
         // 文章内容
         let content = document.querySelector('#notion-app > div > div.notion-cursor-listener > div > div > div.notion-page-content')
 
-        // 本地 build 时，如果在浏览器中 notion 是登录状态，获取到的文本是可编辑状态，需要处理一下。
+
+        // 可编辑内容修复
         let contenteditable = content.querySelectorAll("div[contenteditable=true]")
         contenteditable.forEach(i => {
             i.setAttribute("contenteditable", false)
