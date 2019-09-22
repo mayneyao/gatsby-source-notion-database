@@ -1,6 +1,6 @@
 {
   "name": "gatsby-source-notion-database",
-  "version": "0.5.9",
+  "version": "0.6.0",
   "description": "Load data from Notion's database",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/mayneyao/gatsby-source-notion-database#readme",
   "dependencies": {
-    "notabase": "^0.6.9",
+    "notabase": "^0.7.0",
     "puppeteer": "^1.19.0"
   },
   "devDependencies": {
