@@ -17,7 +17,7 @@ const getPageHtml = async (url) => {
                 item.src = item.src
             }
         })
-        
+
         // TOC 链接转化
         let qs = "#notion-app > div > div.notion-cursor-listener > div > div.notion-scroller.vertical.horizontal > div.notion-page-content > div > div:nth-child(1) > div > a"
         document.querySelectorAll(qs).forEach(item => {
@@ -55,6 +55,12 @@ const getPageHtml = async (url) => {
             }
         });
 
+        // bookmark 修复，notion更改了 bookmark block 的生成规则，a 标签内没有 href了
+        document.querySelectorAll("#notion-app > div > div.notion-cursor-listener > div > div.notion-scroller.vertical.horizontal > div.notion-page-content > div[data-block-id] > div > div > a").forEach(a => {
+            if (!a.href) {
+                a.href = a.querySelector("div > div:first-child > div:last-child").innerText
+            }
+        })
         // 表格视图 CSS 修复
         document.querySelectorAll("div.notion-scroller.horizontal").forEach(item => {
             item.children[0].style.padding = 0
