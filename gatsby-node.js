@@ -48,7 +48,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }, opt
         const node = Object.assign({}, data, nodeMeta)
         createNode(node)
     })
-    console.log(_dbMap, cacheTable)
+    // console.log(_dbMap, cacheTable)
     let db = await nb.fetchAll(_dbMap)
     await Promise.all(Object.entries(db).map(async (i) => {
         let [tableName, collection] = i

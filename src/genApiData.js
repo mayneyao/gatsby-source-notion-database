@@ -51,7 +51,7 @@ async function genApiData(nb, collection, tableName, key, createNode, createNode
             slug: itemData.id.split("-").join(""),
             last_edited_time: itemData._raw.last_edited_time,
             created_time: itemData._raw.created_time,
-            _raw: itemData._raw
+            _raw: JSON.stringify(itemData._raw)
         }
         let resFk = {}
         try {
@@ -100,7 +100,7 @@ async function genApiData(nb, collection, tableName, key, createNode, createNode
             const node = Object.assign({}, data, nodeMeta)
             createNode(node)
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             console.log(`get failed at ${itemData.id}`)
         }
     })))
