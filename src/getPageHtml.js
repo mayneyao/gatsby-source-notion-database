@@ -65,6 +65,8 @@ const getPageHtml = async (url) => {
         document.querySelectorAll("div.notion-scroller.horizontal").forEach(item => {
             item.children[0].style.padding = 0
             item.previousElementSibling.style.paddingLeft = 0
+            // 表格在 safari & edge 中显示有问题。
+            item.style.overflowX = "scroll"
         })
         // 文章内容
         let content = document.querySelector('#notion-app > div > div.notion-cursor-listener > div > div > div.notion-page-content')
