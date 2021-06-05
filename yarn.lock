@@ -11,7 +11,7 @@ agent-base@^4.3.0:
 
 async-limiter@~1.0.0:
   version "1.0.1"
-  resolved "https://registry.npmjs.org/async-limiter/-/async-limiter-1.0.1.tgz#dd379e94f0db8310b08291f9d64c3209766617fd"
+  resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.1.tgz#dd379e94f0db8310b08291f9d64c3209766617fd"
   integrity sha512-csOlWGAcRFJaI6m+F2WKdnMKr4HhdhFVBk0H/QbJFMCr+uO2kwohwXQPxw/9OCxp05r5ghVBFSyioixx3gfkNQ==
 
 axios@^0.19.0:
@@ -216,10 +216,10 @@ node-fetch@^2.6.0:
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
   integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
 
-notabase@^0.6.9:
-  version "0.6.9"
-  resolved "https://registry.npmjs.org/notabase/-/notabase-0.6.9.tgz#5b6020b89fc9a49f42f15de5e7260974169976fc"
-  integrity sha512-RYP3ZYMZjXpRmsYFfMQQ4HWTJmhPXTa5ZxL96WnjJwGLFsOxJaVY46+I4/pI9aOr3P23TY4tJ+QkBDCrcG/oBA==
+notabase@0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/notabase/-/notabase-0.7.0.tgz#1ce252d21ef7669ff7001f326fa26ca82ad9df6b"
+  integrity sha512-UR00cZwgg2dDSWY9KmtMrb+GfhSdSB5Tng4h/HbXw3PjKeo3+Mvh1Up6MApcq4CuK9csN9d0DJzE7X6X0iyrpQ==
   dependencies:
     axios "^0.19.0"
     dayjs "^1.8.15"
@@ -331,9 +331,9 @@ wrappy@1:
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
 
 ws@^6.1.0:
-  version "6.2.1"
-  resolved "https://registry.npmjs.org/ws/-/ws-6.2.1.tgz#442fdf0a47ed64f59b6a5d8ff130f4748ed524fb"
-  integrity sha512-GIyAXC2cB7LjvpgMt9EKS2ldqr0MTrORaleiOno6TweZ6r3TKtoFQWay/2PceJ3RuBasOHzXNn5Lrw1X0bEjqA==
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-6.2.2.tgz#dd5cdbd57a9979916097652d78f1cc5faea0c32e"
+  integrity sha512-zmhltoSR8u1cnDsD43TX59mzoMZsLKqUweyYBAIvTngR3shc0W6aOZylZmq/7hqyVxPdi+5Ud2QInblgyE72fw==
   dependencies:
     async-limiter "~1.0.0"
 
